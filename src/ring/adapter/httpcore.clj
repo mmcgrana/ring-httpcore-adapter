@@ -95,7 +95,7 @@
              (seq? body)
                (EntityTemplate.
                  (reify ContentProducer
-                        (writeTo [this ^OutputStream s]
+                        (writeTo [this s]
                                  (let [w (if charset
                                            (OutputStreamWriter. s ^String charset)
                                            (OutputStreamWriter. s))]
@@ -119,7 +119,7 @@
    The HttpContext must contains a map associated to \"ring.request-prototype\"."
   [handler]
   (reify HttpRequestHandler
-      (handle [this request response ^HttpContext context]
+      (handle [this request response context]
         (let [req (build-req-map request
                                  (.getAttribute context "ring.request-prototype"))
               resp (handler req)]
